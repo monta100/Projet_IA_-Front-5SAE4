@@ -1,0 +1,95 @@
+<div class="container">
+  <header class="page-header">
+    <div class="header-content">
+      <h1>Mes Repas</h1>
+      <p>Consultez, filtrez et gérez vos repas enregistrés.</p>
+    </div>
+    <button class="btn primary" (click)="goToAjouterRepas()">Ajouter un repas</button>
+  </header>
+
+  <!-- Section des filtres -->
+  <div class="filters-container">
+    <input type="text" class="filter-input" placeholder="Rechercher un repas..." [(ngModel)]="filtreNom" (input)="appliquerFiltres()">
+    <input type="date" class="filter-input" [(ngModel)]="filtreDate" (change)="appliquerFiltres()">
+    <select class="filter-select" [(ngModel)]="filtreType" (change)="appliquerFiltres()">
+      <option value="">Tous les types</option>
+      <option value="PETIT_DEJEUNER">Petit-déjeuner</option>
+      <option value="DEJEUNER">Déjeuner</option>
+      <option value="DINER">Dîner</option>
+      <option value="COLLATION">Collation</option>
+    </select>
+    <button class="clear-filters-btn" (click)="reinitialiserFiltres()">Réinitialiser</button>
+  </div>
+
+  <!-- Grille des cartes de repas -->
+  <div class="repas-list" *ngIf="repasFiltres.length > 0; else noRepas">
+    <div class="repas-card list-mode" *ngFor="let repas of repasFiltres">
+      <div class="card-header">
+        <h3>{{ repas.nom || 'Repas sans nom' }}</h3>
+        <span class="repas-date">{{ repas.date | date: 'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="card-body">
+        <p class="repas-type">{{ repas.type }}</p>
+        <div class="nutrition-summary">
+          <span class="calories">{{ repas.caloriesTotales || calculerCalories(repas) }} kcal</span>
+          <span class="composition">
+            {{ (repas.recettes?.length || 0) + (repas.ingredients?.length || 0) }} éléments
+          </span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-details" (click)="voirDetails(repas)">Détails</button>
+        <button class="btn btn-edit" (click)="modifierRepas(repas.id)">Modifier</button>
+        <button class="btn btn-delete" (click)="supprimerRepas(repas.id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si aucun repas n'est trouvé -->
+  <ng-template #noRepas>
+    <div class="no-repas-message">
+      <p>Aucun repas trouvé pour les filtres actuels ou aucun repas n'a encore été ajouté.</p>
+      <button class="btn primary" (click)="goToAjouterRepas()">Ajouter un premier repas</button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Fenêtre Modale pour les détails du repas -->
+<div class="modal-overlay" *ngIf="repasSelectionne">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Détails de "{{ repasSelectionne.nom || 'Repas sans nom' }}"</h2>
+      <button class="close-modal-btn" (click)="fermerDetails()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h4>Total Calories: {{ calculerCalories(repasSelectionne) }} kcal</h4>
+
+      <div class="details-section" *ngIf="repasSelectionne.recettes?.length">
+        <h5>Recettes incluses</h5>
+        <ul>
+          <li *ngFor="let recette of repasSelectionne.recettes">
+            {{ recette.nom }} - <span class="dispo">Recette disponible</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="details-section" *ngIf="repasSelectionne.ingredients?.length">
+        <h5>Ingrédients ajoutés</h5>
+        <ul>
+          <li *ngFor="let ingredient of repasSelectionne.ingredients">
+            {{ ingredient.nom }} ({{ ingredient.calories }} kcal)
+          </li>
+        </ul>
+      </div>
+
+       <div *ngIf="!repasSelectionne.recettes?.length && !repasSelectionne.ingredients?.length">
+          <p>Ce repas ne contient ni recette ni ingrédient spécifique.</p>
+       </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn" (click)="fermerDetails()">Fermer</button>
+    </div>
+  </div>
+</div>
+

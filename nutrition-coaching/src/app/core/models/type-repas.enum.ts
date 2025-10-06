@@ -1,0 +1,6 @@
+export enum TypeRepas {
+  PETIT_DEJEUNER = 'PETIT_DEJEUNER',
+  DEJEUNER = 'DEJEUNER',
+  DINER = 'DINER',
+  COLLATION = 'COLLATION'
+}

@@ -1,0 +1,350 @@
+/* Variables de couleur pour une maintenance facile */
+:root {
+  --background-color: #121212;
+  --card-background: #1e1e1e;
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #b0b0b0;
+  --primary-accent-color: #bb86fc;
+  --secondary-accent-color: #03dac6;
+  --error-color: #cf6679;
+  --border-color: #333;
+  --input-background: #2c2c2c;
+  --btn-primary-bg: var(--primary-accent-color);
+  --btn-primary-text: #000;
+  --btn-secondary-bg: #333;
+  --btn-secondary-text: var(--primary-text-color);
+  --btn-danger-bg: var(--error-color);
+  --btn-danger-text: #000;
+}
+
+.container {
+  padding: 2rem;
+  color: var(--primary-text-color);
+  margin-top: 80px; /* Espace pour l'en-tête global */
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  margin-bottom: 2.5rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: var(--secondary-text-color);
+  margin: 0;
+}
+
+/* Section des filtres */
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.filter-input, .filter-select {
+  flex-grow: 1;
+  padding: 0.8rem 1rem;
+  background-color: var(--input-background);
+  border: 1px solid var(--border-color);
+  color: var(--primary-text-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filter-input::placeholder {
+  color: var(--secondary-text-color);
+}
+
+.clear-filters-btn {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.clear-filters-btn:hover {
+  background-color: #444;
+}
+
+/* Grille des repas */
+/* Mode liste verticale */
+.repas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.repas-card.list-mode {
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 140px;
+}
+
+.repas-card.list-mode .card-body { flex: 1; }
+.repas-card.list-mode .card-footer { align-self: center; }
+
+.repas-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  isolation: isolate; /* crée un nouveau contexte de pile pour éviter overlays externes */
+  pointer-events: auto;
+}
+
+.repas-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--primary-accent-color);
+}
+
+.repas-date {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.repas-type {
+  font-style: italic;
+  color: var(--secondary-text-color);
+  margin-bottom: 1rem;
+}
+
+.nutrition-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.calories {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--secondary-accent-color);
+}
+
+.composition {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  background-color: rgba(0,0,0,0.2);
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Assure qu'aucun pseudo élément décoratif futur ne bloque les clics */
+.repas-card::before,
+.repas-card::after {
+  pointer-events: none !important;
+}
+
+/* Filet de debug temporaire (commenter si gênant) */
+/* .repas-card { outline: 1px solid rgba(255,255,255,0.05); } */
+
+.btn {
+  position: relative;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 999px; /* pill */
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: .3px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  color: var(--primary-text-color);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  transition: background .25s, color .25s, transform .15s, box-shadow .25s;
+  user-select: none;
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--secondary-accent-color);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(.97);
+}
+
+.card-footer .btn { display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; }
+/* Visibilité renforcée */
+.btn-details { 
+  background: linear-gradient(145deg, var(--primary-accent-color), #8d55ff);
+  color: #fff; 
+  border: 1px solid var(--primary-accent-color);
+}
+.btn-details:hover { filter: brightness(1.12); }
+
+.btn-edit { 
+  background: linear-gradient(145deg, #2e2e2e, #1d1d1d); 
+  color: var(--primary-text-color); 
+  border:1px solid rgba(255,255,255,0.15);
+}
+.btn-edit:hover { background: linear-gradient(145deg, #3a3a3a, #252525); }
+
+.btn-delete { 
+  background: linear-gradient(145deg, var(--error-color), #a84052); 
+  color: #fff; 
+  border:1px solid var(--error-color);
+}
+.btn-delete:hover { filter: brightness(1.18); }
+
+/* Debug contraste temporaire (enlever si gênant) */
+.btn-details::after, .btn-delete::after { content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:0 0 0 1px rgba(255,255,255,0.15) inset; pointer-events:none; }
+
+.btn[disabled], .btn.disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* Message si aucun repas */
+.no-repas-message {
+  text-align: center;
+  padding: 4rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+}
+
+.no-repas-message p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn.primary {
+    background-color: var(--primary-accent-color);
+    color: var(--btn-primary-text);
+}
+
+/* Fenêtre Modale */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--card-background);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--primary-accent-color);
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.modal-body h4 {
+  font-size: 1.5rem;
+  color: var(--secondary-accent-color);
+  margin-bottom: 1.5rem;
+}
+
+.details-section {
+  margin-bottom: 1.5rem;
+}
+
+.details-section h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid var(--primary-accent-color);
+  padding-left: 0.8rem;
+}
+
+.details-section ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.details-section li {
+  padding: 0.4rem 0;
+}
+
+.dispo {
+  color: var(--secondary-accent-color);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.modal-footer {
+  text-align: right;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+}
+
+/* (Bloc debug interactions retiré) */

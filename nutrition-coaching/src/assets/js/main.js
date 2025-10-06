@@ -512,7 +512,7 @@
   /*--------------------------------------------------------------
     13. Hover add/remove Active Class
 --------------------------------------------------------------*/
-    if ($.exists(".add-active-class-content")) {
+  if ($.exists(".add-active-class-content")) {
     const packages = document.querySelectorAll(".hover-active-class");
     packages.forEach(function (pkg) {
       pkg.addEventListener("mouseenter", function () {

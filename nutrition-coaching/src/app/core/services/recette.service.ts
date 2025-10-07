@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Recette } from '../models/recette.model';
-import { API_BASE_URL } from './api-config';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RecetteService {
   // Le controller Spring est mappé sur @RequestMapping("/recette") (singulier)
-  private readonly url = `${API_BASE_URL}/recette`;
+  private readonly url = `${environment.apiBaseUrl}/recette`;
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<Recette[]> { return this.http.get<Recette[]>(this.url); }

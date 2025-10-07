@@ -7,8 +7,20 @@
     <button class="btn primary" (click)="goToAjouterRepas()">Ajouter un repas</button>
   </header>
 
+  <!-- Etat de chargement -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement des repas...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="!loading && erreurChargement" class="error-state">
+    <p>{{ erreurChargement }}</p>
+    <button class="btn" (click)="chargerRepas()">Réessayer</button>
+  </div>
+
   <!-- Section des filtres -->
-  <div class="filters-container">
+  <div class="filters-container" *ngIf="!loading && !erreurChargement">
     <input type="text" class="filter-input" placeholder="Rechercher un repas..." [(ngModel)]="filtreNom" (input)="appliquerFiltres()">
     <input type="date" class="filter-input" [(ngModel)]="filtreDate" (change)="appliquerFiltres()">
     <select class="filter-select" [(ngModel)]="filtreType" (change)="appliquerFiltres()">
@@ -22,8 +34,8 @@
   </div>
 
   <!-- Grille des cartes de repas -->
-  <div class="repas-list" *ngIf="repasFiltres.length > 0; else noRepas">
-    <div class="repas-card list-mode" *ngFor="let repas of repasFiltres">
+  <div class="repas-grid" *ngIf="!loading && !erreurChargement && repasFiltres.length > 0; else noRepas">
+    <div class="repas-card" *ngFor="let repas of repasFiltres">
       <div class="card-header">
         <h3>{{ repas.nom || 'Repas sans nom' }}</h3>
         <span class="repas-date">{{ repas.date | date: 'dd/MM/yyyy' }}</span>
@@ -47,7 +59,7 @@
 
   <!-- Message si aucun repas n'est trouvé -->
   <ng-template #noRepas>
-    <div class="no-repas-message">
+    <div *ngIf="!loading && !erreurChargement" class="no-repas-message">
       <p>Aucun repas trouvé pour les filtres actuels ou aucun repas n'a encore été ajouté.</p>
       <button class="btn primary" (click)="goToAjouterRepas()">Ajouter un premier repas</button>
     </div>

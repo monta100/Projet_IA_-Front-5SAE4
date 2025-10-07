@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ingredient } from '../models/ingredient.model';
-import { API_BASE_URL } from './api-config';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientService {
   // Controller Spring: @RequestMapping("/ingredient") (singulier)
-  private readonly url = `${API_BASE_URL}/ingredient`;
+  private readonly url = `${environment.apiBaseUrl}/ingredient`;
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<Ingredient[]> { return this.http.get<Ingredient[]>(this.url); }

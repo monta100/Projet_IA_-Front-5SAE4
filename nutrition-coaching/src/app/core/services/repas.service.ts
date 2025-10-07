@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Repas } from '../models/repas.model';
-import { API_BASE_URL } from './api-config';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RepasService {
-  private readonly url = `${API_BASE_URL}/repas`;
+  private readonly url = `${environment.apiBaseUrl}/repas`;
   constructor(private http: HttpClient) {}
 
   private mapRepas(dto: any): Repas {

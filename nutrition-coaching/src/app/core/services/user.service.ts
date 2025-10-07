@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
-import { API_BASE_URL } from './api-config';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private readonly url = `${API_BASE_URL}/users`;
+  private readonly url = `${environment.apiBaseUrl}/users`;
   constructor(private http: HttpClient) {}
 
   findAll(params?: Record<string, any>): Observable<User[]> {

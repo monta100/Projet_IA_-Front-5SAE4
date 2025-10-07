@@ -1,0 +1,75 @@
+<div class="login-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="login-card">
+          <div class="text-center mb-4">
+            <h2>Connexion</h2>
+            <p>Connectez-vous à votre compte</p>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control"
+                [class.is-invalid]="email?.invalid && email?.touched"
+                id="email" 
+                formControlName="email"
+                placeholder="votre@email.com">
+              <div class="invalid-feedback" *ngIf="email?.invalid && email?.touched">
+                <span *ngIf="email?.errors?.['required']">L'email est requis</span>
+                <span *ngIf="email?.errors?.['email']">Format d'email invalide</span>
+              </div>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-3">
+              <label for="motDePasse" class="form-label">Mot de passe</label>
+              <input 
+                type="password" 
+                class="form-control"
+                [class.is-invalid]="motDePasse?.invalid && motDePasse?.touched"
+                id="motDePasse" 
+                formControlName="motDePasse"
+                placeholder="Votre mot de passe">
+              <div class="invalid-feedback" *ngIf="motDePasse?.invalid && motDePasse?.touched">
+                <span *ngIf="motDePasse?.errors?.['required']">Le mot de passe est requis</span>
+                <span *ngIf="motDePasse?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</span>
+              </div>
+            </div>
+
+            <!-- Message d'erreur -->
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Bouton de connexion -->
+            <button 
+              type="submit" 
+              class="btn btn-primary w-100 mb-2"
+              [disabled]="isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+              {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+            </button>
+            
+            <!-- Bouton de test pour déboguer -->
+            <button 
+              type="button" 
+              class="btn btn-secondary w-100 mb-2"
+              (click)="testClick()">
+              Test Click (pour déboguer)
+            </button>
+          </form>
+
+          <div class="text-center mt-3">
+            <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
+            <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

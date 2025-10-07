@@ -122,9 +122,35 @@
 				</div>
 			</div>
 			<div class="ak-main-header-right">
-				<a href="classes.html" class="button-primary color2">
-					BECOME A MEMBER
-				</a>
+				<!-- Section d'authentification -->
+				<div class="auth-section" *ngIf="!isAuthenticated">
+					<a routerLink="/login" class="button-secondary me-2">
+						Se connecter
+					</a>
+					<a routerLink="/register" class="button-primary color2">
+						S'inscrire
+					</a>
+				</div>
+				
+				<!-- Section utilisateur connecté -->
+				<div class="user-section d-flex align-items-center gap-3" *ngIf="isAuthenticated">
+					<div class="user-info">
+						<span class="user-name">Bonjour, {{ getUserDisplayName() }}</span>
+					</div>
+					<div class="dropdown">
+						<button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-user"></i>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="userDropdown">
+							<li><a class="dropdown-item" routerLink="/profile"><i class="fas fa-user-edit"></i> Mon profil</a></li>
+							<li><a class="dropdown-item" routerLink="/nutrition-plans"><i class="fas fa-utensils"></i> Mes plans</a></li>
+							<li><a class="dropdown-item" routerLink="/tracker"><i class="fas fa-chart-line"></i> Suivi</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#" (click)="onLogout()"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+						</ul>
+					</div>
+				</div>
+				
 				<div class="button-offcanva style-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></div>
 			</div>
 		</div>
